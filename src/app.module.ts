@@ -16,6 +16,7 @@ import { ToDoModule } from './resolvers/todos/todos.module';
       database: process.env.POSTGRES_DATABASE || 'project',
       autoLoadEntities: true,
       synchronize: true,
+      ssl: true,
     }),
     GraphQLModule.forRoot({
       driver: ApolloDriver,
