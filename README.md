@@ -19,6 +19,7 @@ $ npm run start:prod
 
 ## Итог
 
+- [https://oblako-tasks-back-end.herokuapp.com/projects](https://oblako-tasks-back-end.herokuapp.com/projects)
 - Настроен TypeORM
 - Настроен GraphQL
 - Создан функционал (Получить задачи / Создать задачу / Обновиться задачу)
