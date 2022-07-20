@@ -13,10 +13,10 @@ import { ToDoModule } from './resolvers/todos/todos.module';
       port: 5432,
       username: process.env.POSTGRES_USERNAME || 'postgres',
       password: process.env.POSTGRES_PASSWORD || 'root',
-      database: process.env.POSTGRES_DATABASE || 'project',
+      database: process.env.POSTGRES_DATABASE || 'postgres',
       autoLoadEntities: true,
       synchronize: true,
-      ssl: { rejectUnauthorized: false } || false,
+      ssl: { rejectUnauthorized: false },
     }),
     GraphQLModule.forRoot({
       driver: ApolloDriver,
