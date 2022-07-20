@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateToDoDto } from './dto/create-todo.dto';
 import { ToDoInput } from './inputs/todo.input';
 import { ToDo } from './todos.entity';
 
@@ -23,13 +24,12 @@ export class ToDosService {
         return todo;
 	}
 	
-	async updateCheckCompleted(todoID: number) {
-		const todo = await this.ToDoRepository.findOne({where: {id: todoID}});
-
+	async updateCheckCompleted(id: number, input: CreateToDoDto) {
+		const todo = await this.ToDoRepository.findOne({where: {id: id}});
+		
 		if (todo) {
 			const updTodo = {...todo, isCompleted: !(await todo).isCompleted};
-
-			await this.ToDoRepository.update(todoID, updTodo);
+			await this.ToDoRepository.update(id, updTodo);
 
 			return updTodo;
 		}

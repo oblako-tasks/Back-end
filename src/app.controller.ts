@@ -1,8 +1,9 @@
-import { Body, Controller, Get, HttpStatus, Param, ParseIntPipe, Post, Put, Res, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, Put, Res, UsePipes, ValidationPipe } from '@nestjs/common';
 import { TasksService } from './resolvers/tasks/tasks.service';
 import { ToDosService } from './resolvers/todos/todos.service';
 import { Response } from 'express';
 import { CreateDataDto } from './dto/data.dto';
+import { CreateToDoDto } from './resolvers/todos/dto/create-todo.dto';
 
 @Controller('projects')
 export class AppController {
@@ -37,12 +38,13 @@ export class AppController {
         return result;
     }
 
-    @Put('/todo/:id')
+    @Patch('/todo/:id')
     async updateTask(
         @Param('id', ParseIntPipe) id: number,
         @Res() res: Response,
+        @Body() todo: CreateToDoDto
     ) {
-        const todos = await this.todosService.updateCheckCompleted(id);
+        const todos = await this.todosService.updateCheckCompleted(id, todo);
 
         if (todos) {
             res.send({
