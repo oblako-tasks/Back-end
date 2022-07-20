@@ -64,15 +64,30 @@ export class AppController {
         @Res() res: Response,
         @Body() createData: CreateDataDto,
     ) {
+        const existsTask = await this.tasksService.getTask(createData.task.title);
         const { task, todos } = createData;
-        const createdTask = await this.tasksService.saveTask(task);
-        const createdTodo =  await this.todosService.saveToDo({...todos, taskID: createdTask.id});
 
-        const result = {
-            "task": createdTask,
-            "todo": createdTodo
-        };
-        
-        res.send(result);
+        if (existsTask) {
+            const createdTodo =  await this.todosService.saveToDo({...todos, taskID: existsTask.id});
+            
+            const result = {
+                "id": existsTask.id,
+                "title": existsTask.title,
+                "todos": createdTodo,
+            };
+            
+            res.send(result);
+        } else {
+            const createdTask = await this.tasksService.saveTask(task);
+            const createdTodo =  await this.todosService.saveToDo({...todos, taskID: createdTask.id});
+
+            const result = {
+                "id": createdTask.id,
+                "title": createdTask.title,
+                "todos": createdTodo,
+            };
+            
+            res.send(result);
+        }
     }
 }

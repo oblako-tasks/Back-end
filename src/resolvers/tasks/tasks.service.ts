@@ -8,6 +8,10 @@ import { Task } from './tasks.entity'
 export class TasksService {
 	constructor (@InjectRepository(Task) private readonly TaskRepository: Repository<Task>) {}
 
+	async getTask(title: string): Promise<Task> {
+		return await this.TaskRepository.findOne({where: {title: title}});
+	}
+
 	async getTasks(): Promise<Task[]> {
 		return await this.TaskRepository.find();
 	}
