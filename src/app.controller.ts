@@ -28,7 +28,8 @@ export class AppController {
             });
 
             result.push({
-                "task": task,
+                "id": task.id,
+                "title": task.title,
                 "todos": tmp
             });
         });
