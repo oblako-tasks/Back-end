@@ -14,28 +14,7 @@ export class AppController {
     
     @Get('')
     async tasks() {
-        const tasks = await this.tasksService.getTasks();
-        const todos = await this.todosService.getToDos();
-        const result = [];
-        let tmp = [];
-
-        // map -> filter
-        tasks.forEach(task => {
-            tmp = [];
-            todos.forEach(todo => {
-                if(task.id === todo.taskID) {
-                    tmp.push(todo);
-                }
-            });
-
-            result.push({
-                "id": task.id,
-                "title": task.title,
-                "todos": tmp
-            });
-        });
-        
-        return result;
+        return this.tasksService.getAllData();
     }
 
     @Patch('/todo/:id')
