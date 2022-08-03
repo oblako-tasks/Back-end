@@ -21,9 +21,8 @@ export class AppController {
     async updateTask(
         @Param('id', ParseIntPipe) id: number,
         @Res() res: Response,
-        @Body() todo: CreateToDoDto
     ) {
-        const todos = await this.todosService.updateCheckCompleted(id, todo);
+        const todos = await this.todosService.updateCheckCompleted(id);
 
         if (todos) {
             res.send({

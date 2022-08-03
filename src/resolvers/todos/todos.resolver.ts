@@ -20,8 +20,8 @@ export class ToDosResolver {
 		return this.todosService.saveToDo(todo);
 	}
 
-	// @Mutation(() => CreateToDoDto)
-	// async changeCheckCompleted(@Args('todoID') todoID: number) {
-	// 	return this.todosService.updateCheckCompleted(todoID);
-	// }
+	@Mutation(() => CreateToDoDto)
+	async changeCheckCompleted(@Args('todoID') todoID: number) {
+		return this.todosService.updateCheckCompleted(todoID);
+	}
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateToDoDto } from './dto/create-todo.dto';
 import { ToDoInput } from './inputs/todo.input';
 import { ToDo } from './todos.entity';
 
@@ -24,7 +23,7 @@ export class ToDosService {
         return todo;
 	}
 	
-	async updateCheckCompleted(id: number, input: CreateToDoDto) {
+	async updateCheckCompleted(id: number) {
 		const todo = await this.ToDoRepository.findOne({where: {id: id}});
 		
 		if (todo) {
