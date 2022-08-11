@@ -16,11 +16,14 @@ import { ToDoModule } from './resolvers/todos/todos.module';
       database: process.env.POSTGRES_DATABASE || 'postgres',
       autoLoadEntities: true,
       synchronize: true,
-      ssl: { rejectUnauthorized: false },
+      // ssl: { rejectUnauthorized: false },
     }),
     GraphQLModule.forRoot({
       driver: ApolloDriver,
       autoSchemaFile: true,
+      buildSchemaOptions: {
+        numberScalarMode: 'integer'
+      }
     }),
     TaskModule,
     ToDoModule,

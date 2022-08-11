@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from "@nestjs/graphql";
+import { Field, ID, Int, ObjectType } from "@nestjs/graphql";
 import { IsBoolean, IsNotEmpty } from "class-validator";
 
 @ObjectType()
@@ -14,6 +14,6 @@ export class CreateToDoDto {
     @IsBoolean()
     isCompleted: boolean;
 
-    @Field()
+    @Field(() => Int)
     taskID?: number;
 }

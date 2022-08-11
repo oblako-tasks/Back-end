@@ -1,4 +1,4 @@
-import { Field, ID, InputType } from "@nestjs/graphql";
+import { Field, ID, InputType, Int } from "@nestjs/graphql";
 
 @InputType()
 export class ToDoInput {
@@ -11,6 +11,6 @@ export class ToDoInput {
   @Field()
   readonly isCompleted: boolean;
 
-  @Field()
+  @Field(() => Int, { nullable: true })
   readonly taskID?: number;
 }

@@ -2,7 +2,7 @@ import { Body, Controller, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, Pu
 import { TasksService } from './resolvers/tasks/tasks.service';
 import { ToDosService } from './resolvers/todos/todos.service';
 import { Response } from 'express';
-import { CreateDataDto } from './dto/data.dto';
+import { CreateDataDto } from './resolvers/tasks/dto/data.dto';
 import { CreateToDoDto } from './resolvers/todos/dto/create-todo.dto';
 
 @Controller('projects')
@@ -42,30 +42,6 @@ export class AppController {
         @Res() res: Response,
         @Body() createData: CreateDataDto,
     ) {
-        const existsTask = await this.tasksService.getTask(createData.task.title);
-        const { task, todos } = createData;
-
-        if (existsTask) {
-            const createdTodo =  await this.todosService.saveToDo({...todos, taskID: existsTask.id});
-            
-            const result = {
-                "id": existsTask.id,
-                "title": existsTask.title,
-                "todos": createdTodo,
-            };
-            
-            res.send(result);
-        } else {
-            const createdTask = await this.tasksService.saveTask(task);
-            const createdTodo =  await this.todosService.saveToDo({...todos, taskID: createdTask.id});
-
-            const result = {
-                "id": createdTask.id,
-                "title": createdTask.title,
-                "todos": createdTodo,
-            };
-            
-            res.send(result);
-        }
+        res.send(await this.tasksService.saveTask(createData));
     }
 }
